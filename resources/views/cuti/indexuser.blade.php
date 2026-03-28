@@ -25,82 +25,87 @@
                             $izin_telat = $data_user->izin_telat;
                             $izin_pulang_cepat = $data_user->izin_pulang_cepat;
 
-                            $data_cuti = array(
+                            $data_cuti = [
                                 [
                                     'nama' => 'Cuti',
-                                    'nama_cuti' => 'Cuti ('.$izin_cuti.')'
+                                    'nama_cuti' => 'Cuti (' . $izin_cuti . ')',
                                 ],
                                 [
                                     'nama' => 'Izin Masuk',
-                                    'nama_cuti' => 'Izin Masuk ('.$izin_lainnya.')'
+                                    'nama_cuti' => 'Izin Masuk (' . $izin_lainnya . ')',
                                 ],
                                 [
                                     'nama' => 'Izin Telat',
-                                    'nama_cuti' => 'Izin Telat ('.$izin_telat.')'
+                                    'nama_cuti' => 'Izin Telat (' . $izin_telat . ')',
                                 ],
                                 [
                                     'nama' => 'Izin Pulang Cepat',
-                                    'nama_cuti' => 'Izin Pulang Cepat ('.$izin_pulang_cepat.')'
+                                    'nama_cuti' => 'Izin Pulang Cepat (' . $izin_pulang_cepat . ')',
                                 ],
                                 [
                                     'nama' => 'Sakit',
-                                    'nama_cuti' => 'Sakit'
+                                    'nama_cuti' => 'Sakit',
                                 ],
-                            );
+                            ];
                         @endphp
                         <label for="nama_cuti" style="z-index:1000">Jenis Cuti / Izin</label>
-                        <select class="@error('nama_cuti') is-invalid @enderror" id="nama_cuti" name="nama_cuti" data-live-search="true">
+                        <select class="@error('nama_cuti') is-invalid @enderror" id="nama_cuti" name="nama_cuti"
+                            data-live-search="true" class="select2">
                             <option value="">Pilih Cuti</option>
                             @foreach ($data_cuti as $dc)
-                            @if(old('nama_cuti') == $dc["nama"])
-                            <option value="{{ $dc["nama"] }}" selected>{{ $dc["nama_cuti"] }}</option>
-                            @else
-                            <option value="{{ $dc["nama"] }}">{{ $dc["nama_cuti"] }}</option>
-                            @endif
+                                @if (old('nama_cuti') == $dc['nama'])
+                                    <option value="{{ $dc['nama'] }}" selected>{{ $dc['nama_cuti'] }}</option>
+                                @else
+                                    <option value="{{ $dc['nama'] }}">{{ $dc['nama_cuti'] }}</option>
+                                @endif
                             @endforeach
                         </select>
                         @error('nama_cuti')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                         @enderror
                     </div>
 
                     <div class="group-input">
                         <label for="tanggal_mulai">Tanggal Mulai</label>
-                        <input type="datetime" class="@error('tanggal_mulai') is-invalid @enderror" name="tanggal_mulai" id="tanggal_mulai" value="{{ old('tanggal_mulai') }}">
+                        <input type="datetime" class="@error('tanggal_mulai') is-invalid @enderror" name="tanggal_mulai"
+                            id="tanggal_mulai" value="{{ old('tanggal_mulai') }}">
                         @error('tanggal_mulai')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                         @enderror
                     </div>
                     <div class="group-input">
                         <label for="tanggal_akhir">Tanggal Akhir</label>
-                        <input type="datetime" class="@error('tanggal_akhir') is-invalid @enderror" name="tanggal_akhir" id="tanggal_akhir" value="{{ old('tanggal_akhir') }}">
+                        <input type="datetime" class="@error('tanggal_akhir') is-invalid @enderror" name="tanggal_akhir"
+                            id="tanggal_akhir" value="{{ old('tanggal_akhir') }}">
                         @error('tanggal_akhir')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                         @enderror
                     </div>
                     <input type="hidden" name="tanggal">
 
                     <div class="group-input">
-                        <input type="file" name="foto_cuti" id="foto_cuti" class="form-control @error('foto_cuti') is-invalid @enderror">
+                        <input type="file" name="foto_cuti" id="foto_cuti"
+                            class="form-control @error('foto_cuti') is-invalid @enderror">
                         @error('foto_cuti')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                         @enderror
                     </div>
                     <div class="group-input">
                         <label for="alasan_cuti">Alasan Cuti</label>
-                        <input type="text" class="form-control @error('alasan_cuti') is-invalid @enderror" id="alasan_cuti" name="alasan_cuti" value="{{ old('alasan_cuti') }}">
+                        <input type="text" class="form-control @error('alasan_cuti') is-invalid @enderror"
+                            id="alasan_cuti" name="alasan_cuti" value="{{ old('alasan_cuti') }}">
                         @error('alasan_cuti')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                         @enderror
                     </div>
                     <input type="hidden" name="status_cuti">
@@ -116,13 +121,16 @@
             <form action="{{ url('/cuti') }}">
                 <div class="row">
                     <div class="col-4">
-                        <input type="datetime" name="mulai" placeholder="Tanggal Mulai" id="mulai" value="{{ request('mulai') }}">
+                        <input type="datetime" name="mulai" placeholder="Tanggal Mulai" id="mulai"
+                            value="{{ request('mulai') }}">
                     </div>
                     <div class="col-4">
-                        <input type="datetime" name="akhir" placeholder="Tanggal Akhir" id="akhir" value="{{ request('akhir') }}">
+                        <input type="datetime" name="akhir" placeholder="Tanggal Akhir" id="akhir"
+                            value="{{ request('akhir') }}">
                     </div>
                     <div class="col-4">
-                        <button type="submit" id="search" class="form-control btn" style="width: 25px"><i class="fas fa-search"></i></button>
+                        <button type="submit" id="search" class="form-control btn" style="width: 25px"><i
+                                class="fas fa-search"></i></button>
                     </div>
                 </div>
             </form>
@@ -148,49 +156,54 @@
                     </tr>
                 </thead>
                 <tbody>
-                   @foreach ($data_cuti_user as $key => $dcu)
-                   <tr>
-                        <td>{{ ($data_cuti_user->currentpage() - 1) * $data_cuti_user->perpage() + $key + 1 }}.</td>
-                       <td>{{ $dcu->User->name ?? '-' }}</td>
-                       <td>{{ $dcu->lokasi->nama_lokasi ?? '-' }}</td>
-                       <td>{{ $dcu->nama_cuti ?? '-' }}</td>
-                       <td>{{ $dcu->tanggal ?? '-' }}</td>
-                       <td>{{ $dcu->alasan_cuti ?? '-' }}</td>
-                       <td>
-                            <img src="{{ url('storage/'.$dcu->foto_cuti) }}" style="width:150px" alt="">
-                       </td>
-                       <td>
-                            @if($dcu->status_cuti == "Diterima")
-                                {{ $dcu->status_cuti ?? '-' }}
-                            @elseif($dcu->status_cuti == "Ditolak")
-                                {{ $dcu->status_cuti ?? '-' }}
-                            @else
-                                {{ $dcu->status_cuti ?? '-' }}
-                            @endif
-                       </td>
-                       <td>{{ $dcu->ua->name ?? '-' }}</td>
-                       <td>{{ $dcu->catatan ?? '-' }}</td>
-                       <td>
-                            <div style="display: flex; gap: 5px;">
-                                @if($dcu->status_cuti == "Diterima")
-                                    Sudah Approve
+                    @foreach ($data_cuti_user as $key => $dcu)
+                        <tr>
+                            <td>{{ ($data_cuti_user->currentpage() - 1) * $data_cuti_user->perpage() + $key + 1 }}.</td>
+                            <td>{{ $dcu->User->name ?? '-' }}</td>
+                            <td>{{ $dcu->lokasi->nama_lokasi ?? '-' }}</td>
+                            <td>{{ $dcu->nama_cuti ?? '-' }}</td>
+                            <td>{{ $dcu->tanggal ?? '-' }}</td>
+                            <td>{{ $dcu->alasan_cuti ?? '-' }}</td>
+                            <td>
+                                <img src="{{ url('storage/' . $dcu->foto_cuti) }}" style="width:150px" alt="">
+                            </td>
+                            <td>
+                                @if ($dcu->status_cuti == 'Diterima')
+                                    {{ $dcu->status_cuti ?? '-' }}
+                                @elseif($dcu->status_cuti == 'Ditolak')
+                                    {{ $dcu->status_cuti ?? '-' }}
                                 @else
-                                    <a href="{{ url('/cuti/edit/'.$dcu->id) }}" class="btn btn-sm btn-warning btn-circle"><i class="fa fa-solid fa-edit"></i></a>
+                                    {{ $dcu->status_cuti ?? '-' }}
                                 @endif
+                            </td>
+                            <td>{{ $dcu->ua->name ?? '-' }}</td>
+                            <td>{{ $dcu->catatan ?? '-' }}</td>
+                            <td>
+                                <div style="display: flex; gap: 5px;">
+                                    @if ($dcu->status_cuti == 'Diterima')
+                                        Sudah Approve
+                                    @else
+                                        <a href="{{ url('/cuti/edit/' . $dcu->id) }}"
+                                            class="btn btn-sm btn-warning btn-circle"><i
+                                                class="fa fa-solid fa-edit"></i></a>
+                                    @endif
 
-                                @if($dcu->status_cuti == "Diterima")
-                                    Sudah Approve
-                                @else
-                                    <form action="{{ url('/cuti/delete/'.$dcu->id) }}" method="post" class="d-inline">
-                                        @method('delete')
-                                        @csrf
-                                        <button class="btn btn-sm btn-danger btn-circle" style="width: 30px" onClick="return confirm('Are You Sure')"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                @endif
-                            </div>
-                       </td>
-                   </tr>
-                   @endforeach
+                                    @if ($dcu->status_cuti == 'Diterima')
+                                        Sudah Approve
+                                    @else
+                                        <form action="{{ url('/cuti/delete/' . $dcu->id) }}" method="post"
+                                            class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-sm btn-danger btn-circle" style="width: 30px"
+                                                onClick="return confirm('Are You Sure')"><i
+                                                    class="fas fa-trash"></i></button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -204,7 +217,7 @@
     <br>
     @push('script')
         <script>
-            $('select').select2();
+            $('.select').select2();
         </script>
     @endpush
 @endsection
