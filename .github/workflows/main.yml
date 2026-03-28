@@ -1,0 +1,51 @@
+name: Deploy to Server Staging
+
+on:
+  push:
+    branches:
+      - master  # Hanya trigger ketika ada push ke branch master
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: master  # Gunakan branch master
+
+      - name: Deploy to Staging via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SS_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /var/www/html/absensi
+            
+            # Fetch semua perubahan dari remote
+            git fetch origin
+            
+            # Reset branch master ke versi remote
+            git checkout master
+            git reset --hard origin/master
+            
+            # Install dependencies (tanpa dev dependencies)
+            composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+            
+            # Run database migrations
+            php artisan migrate --force
+            
+            # Cache optimizations
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            
+            # Jika menggunakan frontend build
+            # npm ci --production
+            # npm run build
+            
+            # Reload PHP jika diperlukan
+            # sudo systemctl reload php-fpm
