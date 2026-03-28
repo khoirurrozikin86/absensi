@@ -3,7 +3,7 @@ name: Deploy to Server Staging
 on:
   push:
     branches:
-      - master  # Hanya trigger ketika ada push ke branch master add
+      - main  # Hanya trigger ketika ada push ke branch main add
 
 jobs:
   deploy-staging:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: master  # Gunakan branch master
+          ref: main  # Gunakan branch main
 
       - name: Deploy to Staging via SSH
         uses: appleboy/ssh-action@v1.0.0
@@ -28,9 +28,9 @@ jobs:
             # Fetch semua perubahan dari remote
             git fetch origin
             
-            # Reset branch master ke versi remote
-            git checkout master
-            git reset --hard origin/master
+            # Reset branch main ke versi remote
+            git checkout main
+            git reset --hard origin/main
             
             # Install dependencies (tanpa dev dependencies)
             composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
