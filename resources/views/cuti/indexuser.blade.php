@@ -13,7 +13,7 @@
                 <form class="tf-form p-4" method="post" action="{{ url('/cuti/tambah') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="group-input">
-                        <label for="user_id" style="z-index:1000">Nama Pegawai</label>
+                        <label for="user_id" style="z-index:1000">Nama Pegawai test</label>
                         <select id="user_id" name="user_id" id="">
                             <option value="{{ $data_user->id }}">{{ $data_user->name }}</option>
                         </select>
