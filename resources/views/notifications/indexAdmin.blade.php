@@ -60,7 +60,7 @@
                                                     @endif
                                             </div>
                                             <div class="flex-grow-1">
-                                                <h6>{{ $user->name }} </h6>
+                                                <h6>{{ $user?->name }} </h6>
                                                 <p>{{ $inbox->data['message'] }}</p>
                                                 <span>{{ date('d M Y H:i:s', strtotime($inbox->created_at)) }}</span>
                                             </div>
